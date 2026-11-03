@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>人聲音高</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23c84b2f'/%3E%3Cpath d='M5 22c4-1 6-8 8-8s4 10 8 6 4-12 8-12' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="header">
+        <p class="eyebrow">
+          <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M4 22c4-1 6-8 8-8s4 10 8 6 4-12 8-12" />
+          </svg>
+          音高視覺化
+        </p>
+        <h1>人聲音高</h1>
+        <p class="lede">
+          上傳 MP3，把歌聲或說話聲的基頻畫成音高曲線。沒有穩定音高的噪音、氣口與無聲會留白。
+        </p>
+      </header>
+
+      <label class="drop" id="dropzone">
+        <input id="file" type="file" accept=".mp3,audio/mpeg,audio/mp3" />
+        <span class="drop-title">拖放 MP3 到這裡</span>
+        <span class="drop-sub">或點擊選擇檔案。分析只在這台電腦的瀏覽器裡進行，不會上傳。</span>
+      </label>
+
+      <p class="status" id="status" role="status" aria-live="polite" hidden></p>
+      <div class="progress" id="progress" hidden>
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+
+      <section class="stage" id="stage" hidden>
+        <div class="readout">
+          <div>
+            <p class="label">目前音符</p>
+            <p class="note" id="note">—</p>
+            <p class="cents" id="cents">無穩定音高</p>
+          </div>
+          <div>
+            <p class="label">音高</p>
+            <p class="hz" id="hz">— Hz</p>
+          </div>
+          <p class="filename" id="filename"></p>
+          <div class="transport">
+            <button type="button" id="play" aria-pressed="false">播放</button>
+            <p class="time" id="time">0:00 / 0:00</p>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="chart" width="900" height="460"></canvas>
+          <p class="hint">橫軸是時間，縱軸是音名。點擊或拖曳可跳播，空白鍵可播放或暫停。適合人聲為主的錄音。</p>
+        </div>
+      </section>
+
+      <footer class="foot">
+        <p>在 <code>vocal-pitch</code> 資料夾執行 <code>python3 -m http.server</code>，再用瀏覽器打開顯示的網址。</p>
+      </footer>
+    </main>
+    <audio id="player" preload="auto"></audio>
+    <script src="pitch.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
